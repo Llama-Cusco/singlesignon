@@ -17,6 +17,8 @@
 
 namespace Itratos\SingleSignOn\Controller;
 
+use OxidEsales\Eshop\Application\Controller\FrontendController;
+
 
 class SSOAcsController extends FrontendController
 {
