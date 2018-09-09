@@ -10,6 +10,24 @@ require_once __DIR__ . '/../Helper/SSOSamlHelper.php';
 class SSOUserComponent extends SSOUserComponent_parent
 {
 
+    /**
+     * Special utility function which is executed right after
+     * oxcmp_user::logout is called. Currently it unsets such
+     * session parameters as user chosen payment id, delivery
+     * address id, active delivery set.
+     */
+    protected function _afterLogout()
+    {
+        parent::_afterLogout();
+
+        try {
+            $aSettings = \SSOSamlHelper::getSettingsArray();
+            $auth = new \OneLogin_Saml2_Auth($aSettings); // Constructor of the SP, loads settings.php
+            $auth->logout();
+        } catch (OneLogin_Saml2_Error $e) {
+
+        }
+    }
 
 //    public function login()
 //    {
