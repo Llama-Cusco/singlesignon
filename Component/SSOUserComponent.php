@@ -17,7 +17,9 @@ class SSOUserComponent extends SSOUserComponent_parent
         $aSettings = \SSOSamlHelper::getSettingsArray();
 
         $auth = new \OneLogin_Saml2_Auth($aSettings); // Constructor of the SP, loads settings.php
-        $auth->login('http://oxid6/source/llamatest');
+        $auth->login(serialize(array(
+            'redirectUrl' => 'http://oxid6/source/llamatest'
+        )));
 
 
         $sUser = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('lgn_usr');
