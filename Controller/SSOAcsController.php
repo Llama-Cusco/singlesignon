@@ -63,7 +63,7 @@ class SSOAcsController extends FrontendController
 
 
     private function handleIdpLoginResponse($assertionAttributes, $redirect) {
-        $email = isset($assertionAttributes['username'])? $assertionAttributes['username'][0] : '';
+        $email = isset($assertionAttributes['oxusername'])? $assertionAttributes['oxusername'][0] : '';
         if (!$email) {
             throw new Exception("Missing email from saml response");
         }
