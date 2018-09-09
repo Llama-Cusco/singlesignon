@@ -14,14 +14,6 @@ class SSOUserComponent extends SSOUserComponent_parent
     public function login()
     {
 
-        $aSettings = \SSOSamlHelper::getSettingsArray();
-
-        $auth = new \OneLogin_Saml2_Auth($aSettings); // Constructor of the SP, loads settings.php
-        $auth->login(serialize(array(
-            'redirectUrl' => 'http://oxid6/source/llamatest'
-        )));
-
-
         $sUser = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('lgn_usr');
         $sPassword = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('lgn_pwd', true);
         $sCookie = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('lgn_cook');
@@ -35,7 +27,7 @@ class SSOUserComponent extends SSOUserComponent_parent
             $oUser->login($sUser, $sPassword, $sCookie);
             $this->setLoginStatus(USER_LOGIN_SUCCESS);
         } catch (\OxidEsales\Eshop\Core\Exception\UserException $oEx) {
-            // for login component send exception text to a custom component (if defined)
+            // for login component send excpetion text to a custom component (if defined)
             \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay($oEx, false, true, '', false);
 
             return 'user';
@@ -45,31 +37,40 @@ class SSOUserComponent extends SSOUserComponent_parent
             return 'user';
         }
 
+        //added login to IdP
+        $oUser = $this->getUser();
+        if(!$oUser) return;
+
+        //add user oxid and oxusername(email) to relaystate? for redirect
+
+        try {
+
+            $aSettings = \SSOSamlHelper::getSettingsArray();
+            $auth = new \OneLogin_Saml2_Auth($aSettings); // Constructor of the SP, loads settings.php
+            $auth->login(serialize(array(
+                'redirectUrl' => $this->getRedirectUrl()
+            )));
+
+        } catch (\OneLogin_Saml2_Error $e) {
+            throw $e;
+        }
+
         // finalizing ..
         return $this->_afterLogin($oUser);
     }
 
-    public function login_noredirect()
-    {
-        parent::login_noredirect();
 
-        Registry::getSession()->setVariable("iShowSteps", 1);
-        $oViewConfig = oxNew(ViewConfig::class);
-        if ($oViewConfig->isKlarnaCheckoutEnabled()) {
-            KlarnaUtils::fullyResetKlarnaSession();
-            Registry::getSession()->deleteVariable('oFakeKlarnaUser');
-            Registry::getSession()->deleteVariable('sFakeUserId');
-            if ($this->klarnaRedirect()) {
-                Registry::getUtils()->redirect(
-                    $this->getConfig()->getShopSecureHomeUrl() . 'cl=KlarnaExpress',
-                    false,
-                    302
-                );
+    private function getRedirectUrl()
+    {
+        $headers = getallheaders();
+        $size = count($headers);
+        for ($i = $size - 1; $i >= 0; $i--) {
+            if ($headers[$i]['name'] == 'Location') {
+                return $headers[$i]['value'];
             }
         }
-        if ($oViewConfig->isKlarnaPaymentsEnabled()) {
-            KlarnaPayment::cleanUpSession();
-        }
+
+        return false;
     }
 
 }
