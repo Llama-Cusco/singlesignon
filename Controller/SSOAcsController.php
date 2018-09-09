@@ -48,8 +48,6 @@ class SSOAcsController extends FrontendController
         $SAMLSettings = new \OneLogin_Saml2_Settings($aSettings);
         $samlResponse = new \OneLogin_Saml2_Response($SAMLSettings, $sSamlResponse);
 
-        die($redirect);
-
         try {
             if (!$samlResponse->isValid() ) {
                 throw new Exception('Invalid SAML response.');
