@@ -91,7 +91,7 @@ class SSOAcsController extends FrontendController
 
 
     private function getRedirectUrlFromRelayState($sRelayState) {
-        $aRelayState = unserialize($sRelayState);
+        $aRelayState = unserialize(htmlspecialchars_decode($sRelayState));
         return $aRelayState['redirectUrl'];
     }
 }
