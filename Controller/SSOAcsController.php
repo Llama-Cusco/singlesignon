@@ -40,6 +40,9 @@ class SSOAcsController extends FrontendController
         }
 
         $sSamlResponse = $this->getConfig()->getRequestParameter('SAMLResponse');
+
+        if($sSamlResponse === null) return;
+
         $aSettings = \SSOSamlHelper::getSettingsArray();
 
         $SAMLSettings = new \OneLogin_Saml2_Settings($aSettings);
