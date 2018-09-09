@@ -36,7 +36,7 @@ class SSOAcsController extends FrontendController
 
         $redirect = $this->getRedirectUrlFromRelayState($this->getConfig()->getRequestParameter('RelayState'));
         if (!$redirect) {
-            $redirect = $this->getConfig()->getShopUrl() . 'index.php?cl=login';
+            $redirect = $this->getConfig()->getShopUrl() . 'index.php';
         }
 
         $sSamlResponse = $this->getConfig()->getRequestParameter('SAMLResponse');
@@ -57,7 +57,7 @@ class SSOAcsController extends FrontendController
             $this->handleIdpLoginResponse($assertionAttributes, $redirect);
 
         } catch (Exception $e) {
-            Registry::getUtils()->redirect( $this->getConfig()->getShopUrl() . 'index.php?cl=login' );
+            Registry::getUtils()->redirect( $this->getConfig()->getShopUrl() . 'index.php' );
         }
     }
 
@@ -71,7 +71,7 @@ class SSOAcsController extends FrontendController
         //get user by email
         $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
         $sQ = 'select oxid from oxuser where oxusername = ' . $oDb->quote($email) . ' AND oxactive = 1';
-        $sUserOxid = (int) $oDb->getOne($sQ);
+        $sUserOxid = $oDb->getOne($sQ);
 
         if ($sUserOxid) {
             //login oxid customer in session
@@ -85,7 +85,7 @@ class SSOAcsController extends FrontendController
 
         } else {
             //add session error ('Account does not exist')
-            Registry::getUtils()->redirect( $this->getConfig()->getShopUrl() . 'index.php?cl=login' );
+            Registry::getUtils()->redirect( $this->getConfig()->getShopUrl() . 'index.php' );
         }
     }
 
