@@ -3,6 +3,9 @@
 
 namespace Itratos\SingleSignOn\Component;
 
+define("TOOLKIT_PATH", '/home/llama/projects/oxid6/vendor/onelogin/php-saml/');
+require_once(TOOLKIT_PATH . '_toolkit_loader.php');   // We load the SAML2 lib
+require_once __DIR__ . '../Helper/SSOSamlHelper.php';
 
 class SSOUserComponent extends SSOUserComponent_parent
 {
@@ -11,12 +14,9 @@ class SSOUserComponent extends SSOUserComponent_parent
     public function login()
     {
 
-        define("TOOLKIT_PATH", '/home/llama/projects/oxid6/vendor/onelogin/php-saml/');
-        require_once(TOOLKIT_PATH . '_toolkit_loader.php');   // We load the SAML2 lib
-        require_once('/home/llama/projects/oxid6/source/modules/itratos/singlesignon/Settings/OneLoginSettings.php');   // We load the SAML2 lib
+        $aSettings = \SSOSamlHelper::getSettingsArray();
 
-
-        $auth = new \OneLogin_Saml2_Auth($aSettingsData); // Constructor of the SP, loads settings.php
+        $auth = new \OneLogin_Saml2_Auth($aSettings); // Constructor of the SP, loads settings.php
         $auth->login('http://oxid6/source/llamatest');
 
 
