@@ -18,7 +18,13 @@
 namespace Itratos\SingleSignOn\Controller;
 
 use OxidEsales\Eshop\Application\Controller\FrontendController;
+use OxidEsales\Eshop\Application\Model\User;
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\Request;
 
+define("TOOLKIT_PATH", '/home/llama/projects/oxid6/vendor/onelogin/php-saml/');
+require_once(TOOLKIT_PATH . '_toolkit_loader.php');   // We load the SAML2 lib
+require_once __DIR__ . '../Helper/SSOSamlHelper.php';
 
 class SSOAcsController extends FrontendController
 {
@@ -28,9 +34,62 @@ class SSOAcsController extends FrontendController
     {
         parent::init();
 
-        var_dump($_POST);
-        var_dump($_GET);
+        $request = Registry::get(Request::class);
+        $redirect = $this->getRedirectUrlFromRelayState($request->getRequestParameter('RelayState'));
+        if (!$redirect) {
+            $redirect = $this->getConfig()->getShopUrl() . 'index.php?cl=login';
+        }
 
-        die('acs');
+        $sSamlResponse = $request->getRequestParameter('SAMLResponse');
+        $aSettings = \SSOSamlHelper::getSettingsArray();
+
+        $SAMLSettings = new \OneLogin_Saml2_Settings($aSettings);
+        $samlResponse = new \OneLogin_Saml2_Response($SAMLSettings, $sSamlResponse);
+
+        try {
+            if (!$samlResponse->isValid() ) {
+                throw new Exception('Invalid SAML response.');
+            }
+
+            $assertionAttributes = $samlResponse->getAttributes();
+            $this->handleIdpLoginResponse($assertionAttributes, $redirect);
+
+        } catch (Exception $e) {
+            Registry::getUtils()->redirect( $this->getConfig()->getShopUrl() . 'index.php?cl=login' );
+        }
+    }
+
+
+    private function handleIdpLoginResponse($assertionAttributes, $redirect) {
+        $email = isset($assertionAttributes['username'])? $assertionAttributes['username'][0] : '';
+        if (!$email) {
+            throw new Exception("Missing email from saml response");
+        }
+
+        //get user by email
+        $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+        $sQ = 'select oxid from oxuser where oxusername = ' . $oDb->quote($email) . ' AND oxactive = 1';
+        $sUserOxid = (int) $oDb->getOne($sQ);
+
+        if ($sUserOxid) {
+            //login oxid customer in session
+            $this->setUser(null);
+            if ($this->isAdmin()) {
+                Registry::getSession()->setVariable('auth', $sUserOxid);
+            } else {
+                Registry::getSession()->setVariable('usr', $sUserOxid);
+            }
+            Registry::getUtils()->redirect( $redirect );
+
+        } else {
+            //add session error ('Account does not exist')
+            Registry::getUtils()->redirect( $this->getConfig()->getShopUrl() . 'index.php?cl=login' );
+        }
+    }
+
+
+    private function getRedirectUrlFromRelayState($sRelayState) {
+        $aRelayState = unserialize($sRelayState);
+        return $aRelayState['redirectUrl'];
     }
 }
