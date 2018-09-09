@@ -37,6 +37,10 @@ class SSOLoginController extends FrontendController
 
     private function getRedirectUrl()
     {
+        if ( strpos($_SERVER['REQUEST_URI'], 'ssologincontroller') !== false ) {
+            return
+                'http://' . $_SERVER['HTTP_HOST'] . str_replace('ssologincontroller', '', $_SERVER['REQUEST_URI']);
+        }
         return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     }
 
