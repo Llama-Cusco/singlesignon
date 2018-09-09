@@ -34,13 +34,12 @@ class SSOAcsController extends FrontendController
     {
         parent::init();
 
-        $request = Registry::get(Request::class);
-        $redirect = $this->getRedirectUrlFromRelayState($request->getRequestParameter('RelayState'));
+        $redirect = $this->getRedirectUrlFromRelayState($this->getConfig()->getRequestParameter('RelayState'));
         if (!$redirect) {
             $redirect = $this->getConfig()->getShopUrl() . 'index.php?cl=login';
         }
 
-        $sSamlResponse = $request->getRequestParameter('SAMLResponse');
+        $sSamlResponse = $this->getConfig()->getRequestParameter('SAMLResponse');
         $aSettings = \SSOSamlHelper::getSettingsArray();
 
         $SAMLSettings = new \OneLogin_Saml2_Settings($aSettings);

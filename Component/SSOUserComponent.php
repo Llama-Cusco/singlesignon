@@ -33,7 +33,7 @@ class SSOUserComponent extends SSOUserComponent_parent
             $oUser->login($sUser, $sPassword, $sCookie);
             $this->setLoginStatus(USER_LOGIN_SUCCESS);
         } catch (\OxidEsales\Eshop\Core\Exception\UserException $oEx) {
-            // for login component send excpetion text to a custom component (if defined)
+            // for login component send exception text to a custom component (if defined)
             \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay($oEx, false, true, '', false);
 
             return 'user';
