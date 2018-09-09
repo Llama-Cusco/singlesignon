@@ -21,9 +21,17 @@ class SSOUserComponent extends SSOUserComponent_parent
         parent::_afterLogout();
 
         try {
+
+            $sRedirectUrl = $this->getConfig()->getShopUrl();
+            if($sRetUrl = $this->getConfig()->getRequestParameter('returnUrl')) {
+                $sRedirectUrl .= $sRetUrl;
+            }
+
             $aSettings = \SSOSamlHelper::getSettingsArray();
             $auth = new \OneLogin_Saml2_Auth($aSettings); // Constructor of the SP, loads settings.php
-            $auth->logout();
+            $auth->logout(serialize(array(
+                'redirectUrl' => $sRedirectUrl
+            )));
         } catch (OneLogin_Saml2_Error $e) {
 
         }
