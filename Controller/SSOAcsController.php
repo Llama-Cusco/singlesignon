@@ -26,9 +26,9 @@ define("TOOLKIT_PATH", '/home/llama/projects/oxid6/vendor/onelogin/php-saml/');
 require_once(TOOLKIT_PATH . '_toolkit_loader.php');   // We load the SAML2 lib
 require_once __DIR__ . '/../Helper/SSOSamlHelper.php';
 
+
 class SSOAcsController extends FrontendController
 {
-
 
     public function init()
     {
@@ -81,6 +81,10 @@ class SSOAcsController extends FrontendController
             } else {
                 Registry::getSession()->setVariable('usr', $sUserOxid);
             }
+
+            //todo: afterlogin
+            //$this->_afterLogin($oUser);
+
             Registry::getUtils()->redirect( $redirect );
 
         } else {

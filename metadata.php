@@ -23,6 +23,7 @@
 use \OxidEsales\Eshop\Application\Component\UserComponent;
 use \Itratos\SingleSignOn\Component\SSOUserComponent;
 use \Itratos\SingleSignOn\Controller\SSOAcsController;
+use \Itratos\SingleSignOn\Controller\SSOLoginController;
 
 
 /**
@@ -52,7 +53,8 @@ $aModule = array(
 
     ),
     'controllers'       => array(
-        'SSOAcsController' => SSOAcsController::class
+        'SSOAcsController' => SSOAcsController::class,
+        'SSOLoginController' => SSOLoginController::class
     ),
     'templates'   => array(
 
