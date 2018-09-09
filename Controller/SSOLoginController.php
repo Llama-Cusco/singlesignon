@@ -25,23 +25,19 @@ class SSOLoginController extends FrontendController
 
             $aSettings = \SSOSamlHelper::getSettingsArray();
             $auth = new \OneLogin_Saml2_Auth($aSettings); // Constructor of the SP, loads settings.php
+
+            $sRedirectUrl = $this->getConfig()->getShopUrl();
+            if($sRetUrl = $this->getConfig()->getRequestParameter('returnUrl')) {
+                $sRedirectUrl .= $sRetUrl;
+            }
+
             $auth->login(serialize(array(
-                'redirectUrl' => $this->getRedirectUrl()
+                'redirectUrl' => $sRedirectUrl
             )));
 
         } catch (\OneLogin_Saml2_Error $e) {
             throw $e;
         }
-    }
-
-
-    private function getRedirectUrl()
-    {
-        if ( strpos($_SERVER['REQUEST_URI'], 'ssologincontroller') !== false ) {
-            return
-                'http://' . $_SERVER['HTTP_HOST'] . str_replace('ssologincontroller', '', $_SERVER['REQUEST_URI']);
-        }
-        return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     }
 
 }
