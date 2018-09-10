@@ -41,9 +41,6 @@ class SSOAcsController extends FrontendController
 
         $sSamlResponse = $this->getConfig()->getRequestParameter('SAMLResponse');
 
-        var_dump($redirect, $sSamlResponse);
-        die('oxid6');
-
         if($sSamlResponse === null) return;
 
         $aSettings = \SSOSamlHelper::getSettingsArray();
