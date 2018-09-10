@@ -1,3 +1,3 @@
 [{$smarty.block.parent}]
 
-<a href="[{$oViewConf->getSelfLink()|cat:'cl=ssologincontroller'}]">single login</a>
+<a href="http://oxid6/source/index.php?cl=ssologincontroller">single login</a>
