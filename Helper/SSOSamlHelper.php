@@ -32,7 +32,7 @@ class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
                 // returned to the requester, in this case our SP.
                 'assertionConsumerService' => array (
                     // URL Location where the <Response> from the IdP will be returned
-                    'url' => 'http://oxid6/source/index.php?cl=ssoacscontroller',
+                    'url' => 'http://oxid6/index.php?cl=ssoacscontroller',
                     // SAML protocol binding to be used when returning the <Response>
                     // message.  Onelogin Toolkit supports for this endpoint the
                     // HTTP-Redirect binding only
@@ -62,7 +62,7 @@ class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
 
                 'singleLogoutService' => array (
                     // URL Location where the <Response> from the IdP will be returned
-                    'url' => 'http://oxid6/source/index.php?cl=ssologoutcontroller',
+                    'url' => 'http://oxid6/index.php?cl=ssologoutcontroller',
                     // SAML protocol binding to be used when returning the <Response>
                     // message.  Onelogin Toolkit supports for this endpoint the
                     // HTTP-Redirect binding only
