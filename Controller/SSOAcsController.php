@@ -43,9 +43,7 @@ class SSOAcsController extends FrontendController
 
         if($sSamlResponse === null) return;
 
-        $sEntityId = str_replace(array('http://','https://'), '', $this->getConfig()->getShopUrl());
-        $aSettings = \SSOSamlHelper::getSettings($sEntityId);
-
+        $aSettings = \SSOSamlHelper::getSettings();
         $SAMLSettings = new \OneLogin_Saml2_Settings($aSettings);
         $samlResponse = new \OneLogin_Saml2_Response($SAMLSettings, $sSamlResponse);
 

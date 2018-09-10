@@ -1,8 +1,14 @@
 <?php
 
+use OxidEsales\Eshop\Core\Registry as oxRegistry;
+
+
 class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
 
-    public static function getSettings($entityId) {
+    public static function getSettings() {
+
+        $sEntityId = str_replace(array('http://','https://'), '', oxRegistry::getConfig()->getShopUrl());
+        $sEntityId = trim($sEntityId, ' /');
 
         $aSettings['oxid6'] = array (
             // If 'strict' is True, then the PHP Toolkit will reject unsigned
@@ -183,6 +189,6 @@ class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
             )
         );
 
-        return $aSettings[$entityId];
+        return $aSettings[$sEntityId];
     }
 }
