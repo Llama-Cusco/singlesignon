@@ -62,6 +62,12 @@ $aModule = array(
     'events'      => array(
 
     ),
-    'blocks'      => array(),
+    'blocks'      => array(
+        array(
+            'template' => 'widget/header/loginbox.tpl',
+            'block'    => 'thirdparty_login',
+            'file'     => 'views/blocks/thirdparty_login.tpl'
+        )
+    ),
     'settings'    => array()
 );
