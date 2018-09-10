@@ -137,7 +137,7 @@ class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
             'baseurl' => 'http://ollama/llama',
             'sp' => array (
 
-                'entityId' => 'oxid6',
+                'entityId' => 'ollama',
 
                 'assertionConsumerService' => array (
                     'url' => 'http://ollama/index.php?cl=ssoacscontroller',
