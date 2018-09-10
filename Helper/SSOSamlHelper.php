@@ -26,7 +26,7 @@ class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
 
             'sp' => array (
                 // Identifier of the SP entity  (must be a URI)
-                'entityId' => 'http://oxid6',
+                'entityId' => 'oxid6',
                 // Specifies info about where and how the <AuthnResponse> message MUST be
                 // returned to the requester, in this case our SP.
                 'assertionConsumerService' => array (
