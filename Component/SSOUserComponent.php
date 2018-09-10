@@ -30,9 +30,7 @@ class SSOUserComponent extends SSOUserComponent_parent
             $aSettings = \SSOSamlHelper::getSettings();
 
             $auth = new \OneLogin_Saml2_Auth($aSettings); // Constructor of the SP, loads settings.php
-            $auth->logout(serialize(array(
-                'redirectUrl' => $sRedirectUrl
-            )));
+            $auth->logout($sRedirectUrl);
         } catch (OneLogin_Saml2_Error $e) {
 
         }
