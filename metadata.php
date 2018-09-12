@@ -20,10 +20,9 @@
  * @version   OXID eSales WYSIWYG
  */
 
-use \OxidEsales\Eshop\Application\Component\UserComponent;
-use \Itratos\SingleSignOn\Component\SSOUserComponent;
 use \Itratos\SingleSignOn\Controller\SSOAcsController;
 use \Itratos\SingleSignOn\Controller\SSOLoginController;
+use \Itratos\SingleSignOn\Controller\SSOLogoutController;
 
 
 /**
@@ -47,27 +46,19 @@ $aModule = array(
     'url'         => 'http://www.itratos.de',
     'email'       => 'support@itratos.de',
     'extend'      => array(
-        // Component
-        UserComponent::class => SSOUserComponent::class
-
 
     ),
     'controllers'       => array(
         'SSOAcsController' => SSOAcsController::class,
-        'SSOLoginController' => SSOLoginController::class
+        'SSOLoginController' => SSOLoginController::class,
+        'SSOLogoutController' => SSOLogoutController::class
     ),
     'templates'   => array(
-
     ),
     'events'      => array(
-
     ),
     'blocks'      => array(
-        array(
-            'template' => 'widget/header/loginbox.tpl',
-            'block'    => 'thirdparty_login',
-            'file'     => 'views/blocks/thirdparty_login.tpl'
-        )
     ),
-    'settings'    => array()
+    'settings'    => array(
+    )
 );

@@ -1,30 +1,14 @@
 <?php
-/**
- * Copyright 2018 Klarna AB
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 namespace Itratos\SingleSignOn\Controller;
 
 use OxidEsales\Eshop\Application\Controller\FrontendController;
-use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\Eshop\Core\Request;
 
-define("TOOLKIT_PATH", '/home/llama/projects/oxid6/vendor/onelogin/php-saml/');
-require_once(TOOLKIT_PATH . '_toolkit_loader.php');   // We load the SAML2 lib
-require_once __DIR__ . '/../Helper/SSOSamlHelper.php';
+
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/includes.php';
 
 
 class SSOAcsController extends FrontendController
@@ -41,7 +25,9 @@ class SSOAcsController extends FrontendController
 
         $sSamlResponse = $this->getConfig()->getRequestParameter('SAMLResponse');
 
-        if($sSamlResponse === null) return;
+        if(!$sSamlResponse) {
+            throw new Exception('Empty SAML response.');
+        };
 
         $aSettings = \SSOSamlHelper::getSettings();
         $SAMLSettings = new \OneLogin_Saml2_Settings($aSettings);
@@ -56,12 +42,13 @@ class SSOAcsController extends FrontendController
             $this->handleIdpLoginResponse($assertionAttributes, $redirect);
 
         } catch (Exception $e) {
-            Registry::getUtils()->redirect( $this->getConfig()->getShopUrl() . 'index.php' );
+            Registry::getUtils()->redirect( $this->getConfig()->getShopUrl() );
         }
     }
 
 
     private function handleIdpLoginResponse($assertionAttributes, $redirect) {
+
         $email = isset($assertionAttributes['oxusername'])? $assertionAttributes['oxusername'][0] : '';
         if (!$email) {
             throw new Exception("Missing email from saml response");
@@ -84,17 +71,10 @@ class SSOAcsController extends FrontendController
             //todo: afterlogin
             //$this->_afterLogin($oUser);
 
-            Registry::getUtils()->redirect( $redirect );
-
-        } else {
-            //add session error ('Account does not exist')
-            Registry::getUtils()->redirect( $this->getConfig()->getShopUrl() . 'index.php' );
+            Registry::getUtils()->redirect( $redirect  );
         }
+
+        Registry::getUtils()->redirect( $this->getConfig()->getShopUrl()  );
     }
 
-
-    private function getRedirectUrlFromRelayState($sRelayState) {
-        $aRelayState = unserialize(htmlspecialchars_decode($sRelayState));
-        return $aRelayState['redirectUrl'];
-    }
 }

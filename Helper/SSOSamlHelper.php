@@ -10,43 +10,17 @@ class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
         $sEntityId = str_replace(array('http://','https://'), '', oxRegistry::getConfig()->getShopUrl());
         $sEntityId = trim($sEntityId, ' /');
 
-        $aSettings['oxid6'] = array (
-            // If 'strict' is True, then the PHP Toolkit will reject unsigned
-            // or unencrypted messages if it expects them signed or encrypted
-            // Also will reject the messages if not strictly follow the SAML
-            // standard: Destination, NameId, Conditions ... are validated too.
+        $aSettings['dev.hyundai-merchandising.com'] = array (
             'strict' => false,
-
-            // Enable debug mode (to print errors)
             'debug' => false,
-
-
-            // Set a BaseURL to be used instead of try to guess
-            // the BaseURL of the view that process the SAML Message.
-            // Ex. http://sp.example.com/
-            //     http://example.com/sp/
-            'baseurl' => 'http://oxid6/llama',
-
-            // Service Provider Data that we are deploying
-//            'Location' => 'http://oxid6/source/index.php?cl=ssologoutcontroller'
-//            'Location' => 'http://oxid6/source/index.php?cl=ssoacscontroller'
+            'baseurl' => 'http://dev.hyundai-merchandising.com',
 
             'sp' => array (
-                // Identifier of the SP entity  (must be a URI)
-                'entityId' => 'oxid6',
-                // Specifies info about where and how the <AuthnResponse> message MUST be
-                // returned to the requester, in this case our SP.
+                'entityId' => 'dev.hyundai-merchandising.com',
                 'assertionConsumerService' => array (
-                    // URL Location where the <Response> from the IdP will be returned
-                    'url' => 'http://oxid6/index.php?cl=ssoacscontroller',
-                    // SAML protocol binding to be used when returning the <Response>
-                    // message.  Onelogin Toolkit supports for this endpoint the
-                    // HTTP-Redirect binding only
+                    'url' => 'https://dev.hyundai-merchandising.com/index.php?cl=ssoacscontroller',
                     'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
                 ),
-                // If you need to specify requested attributes, set a
-                // attributeConsumingService. nameFormat, attributeValue and
-                // friendlyName can be omitted. Otherwise remove this section.
                 "attributeConsumingService"=> array(
                     "ServiceName" => "SP test",
                     "serviceDescription" => "Test Service",
@@ -60,68 +34,79 @@ class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
                         )
                     )
                 ),
-                // Specifies info about where and how the <Logout Response> message MUST be
-                // returned to the requester, in this case our SP.
-
-                //'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-                //'Location' => 'http://oxid6/simplesaml/module.php/saml/sp/saml2-logout.php/default-sp',
 
                 'singleLogoutService' => array (
-                    // URL Location where the <Response> from the IdP will be returned
-                    'url' => 'http://oxid6/index.php?cl=ssologoutcontroller',
-                    // SAML protocol binding to be used when returning the <Response>
-                    // message.  Onelogin Toolkit supports for this endpoint the
-                    // HTTP-Redirect binding only
+                    'url' => 'https://dev.hyundai-merchandising.com/index.php?cl=ssologoutcontroller',
                     'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
                 ),
-                // Specifies constraints on the name identifier to be used to
-                // represent the requested subject.
-                // Take a look on lib/Saml2/Constants.php to see the NameIdFormat supported
                 'NameIDFormat' => 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
 
-                // Usually x509cert and privateKey of the SP are provided by files placed at
-                // the certs folder. But we can also provide them with the following parameters
                 'x509cert' => '',
                 'privateKey' => '',
-
-                /*
-                 * Key rollover
-                 * If you plan to update the SP x509cert and privateKey
-                 * you can define here the new x509cert and it will be
-                 * published on the SP metadata so Identity Providers can
-                 * read them and get ready for rollover.
-                 */
                 // 'x509certNew' => '',
             ),
 
-            // Identity Provider Data that we want connect with our SP
-
-            //'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-            //'Location' => 'http://oxid6-1/simplesaml/saml2/idp/SSOService.php'
-
             'idp' => array (
-                // Identifier of the IdP entity  (must be a URI)
-                'entityId' => 'oxid6-1',
-                // SSO endpoint info of the IdP. (Authentication Request protocol)
+                'entityId' => '',
                 'singleSignOnService' => array (
-                    // URL Target of the IdP where the SP will send the Authentication Request Message
-                    'url' => 'http://oxid6-1/simplesaml/saml2/idp/SSOService.php',
-                    // SAML protocol binding to be used when returning the <Response>
-                    // message.  Onelogin Toolkit supports for this endpoint the
-                    // HTTP-POST binding only
+                    'url' => 'http://sogus.scavan.xyz/saml/saml2/idp/SSOService.php',
                     'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
                 ),
 
-                // SLO endpoint info of the IdP.
-                //'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-                //'Location' => 'http://oxid6-1/simplesaml/saml2/idp/SingleLogoutService.php'
+                'singleLogoutService' => array (
+                    'url' => 'http://sogus.scavan.xyz/saml/saml2/idp/SingleLogoutService.php',
+                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+                ),
+
+                // Public x509 certificate of the IdP
+                'x509cert' => ''
+            )
+        );
+
+        $aSettings['oxid6'] = array (
+            'strict' => false,
+            'debug' => false,
+            'baseurl' => 'http://oxid6/llama',
+
+            'sp' => array (
+                'entityId' => 'oxid6',
+                'assertionConsumerService' => array (
+                    'url' => 'http://oxid6/index.php?cl=ssoacscontroller',
+                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
+                ),
+                "attributeConsumingService"=> array(
+                    "ServiceName" => "SP test",
+                    "serviceDescription" => "Test Service",
+                    "requestedAttributes" => array(
+                        array(
+                            "name" => "",
+                            "isRequired" => false,
+                            "nameFormat" => "",
+                            "friendlyName" => "",
+                            "attributeValue" => ""
+                        )
+                    )
+                ),
 
                 'singleLogoutService' => array (
-                    // URL Location of the IdP where the SP will send the SLO Request
+                    'url' => 'http://oxid6/index.php?cl=ssologoutcontroller',
+                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+                ),
+                'NameIDFormat' => 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
+                'x509cert' => '',
+                'privateKey' => '',
+                // 'x509certNew' => '',
+            ),
+
+            'idp' => array (
+                'entityId' => 'oxid6-1',
+                'singleSignOnService' => array (
+                    'url' => 'http://oxid6-1/simplesaml/saml2/idp/SSOService.php',
+                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+                ),
+
+                'singleLogoutService' => array (
                     'url' => 'http://oxid6-1/simplesaml/saml2/idp/SingleLogoutService.php',
-                    // SAML protocol binding to be used when returning the <Response>
-                    // message.  Onelogin Toolkit supports for this endpoint the
-                    // HTTP-Redirect binding only
                     'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
                 ),
 
