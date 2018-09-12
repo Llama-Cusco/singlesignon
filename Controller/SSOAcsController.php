@@ -18,10 +18,10 @@ class SSOAcsController extends FrontendController
     {
         parent::init();
 
-        $redirect = $this->getConfig()->getRequestParameter('RelayState');
-        if (!$redirect) {
-            $redirect = $this->getConfig()->getShopUrl() . 'index.php';
-        }
+        //$redirect = $this->getConfig()->getRequestParameter('RelayState');
+        //if (!$redirect) {
+            $redirect = $this->getConfig()->getShopUrl();
+        //}
 
         $sSamlResponse = $this->getConfig()->getRequestParameter('SAMLResponse');
 
