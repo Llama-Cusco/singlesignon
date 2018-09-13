@@ -31,6 +31,8 @@ class SSOAcsController extends FrontendController
             throw new Exception('Empty SAML response.');
         };
 
+        echo '>>>>>';
+
         $aSettings = \SSOSamlHelper::getSettings();
 
         var_dump($aSettings);
