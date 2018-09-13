@@ -36,23 +36,11 @@ class SSOAcsController extends FrontendController
 
         try {
 
-             var_dump($samlResponse->isValid());
-             $assertionAttributes = $samlResponse->getAttributes();
-             var_dump($assertionAttributes);
-             die('---');
-
             if (!$samlResponse->isValid() ) {
                 throw new Exception('Invalid SAML response.');
             }
 
-
             $assertionAttributes = $samlResponse->getAttributes();
-
-
-            var_dump($assertionAttributes);
-
-
-            die('response is valid');
 
             $this->handleIdpLoginResponse($assertionAttributes, $redirect);
 
@@ -64,14 +52,15 @@ class SSOAcsController extends FrontendController
 
     private function handleIdpLoginResponse($assertionAttributes, $redirect) {
 
-        $email = isset($assertionAttributes['oxusername'])? $assertionAttributes['oxusername'][0] : '';
-        if (!$email) {
-            throw new Exception("Missing email from saml response");
+        //$email = isset($assertionAttributes['oxusername'])? $assertionAttributes['oxusername'][0] : '';
+        $login = isset($assertionAttributes['login']) ? $assertionAttributes['login'][0] : '';
+        if (!$login) {
+            throw new Exception("Missing login from saml response");
         }
 
         //get user by email
         $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
-        $sQ = 'select oxid from oxuser where oxusername = ' . $oDb->quote($email) . ' AND oxactive = 1';
+        $sQ = 'select oxid from oxuser where oxusername = ' . $oDb->quote($login) . ' AND oxactive = 1';
         $sUserOxid = $oDb->getOne($sQ);
 
         if ($sUserOxid) {
@@ -86,7 +75,7 @@ class SSOAcsController extends FrontendController
             //todo: afterlogin
             //$this->_afterLogin($oUser);
 
-            Registry::getUtils()->redirect( $redirect  );
+            Registry::getUtils()->redirect( $redirect );
         }
 
         Registry::getUtils()->redirect( $this->getConfig()->getShopUrl()  );
