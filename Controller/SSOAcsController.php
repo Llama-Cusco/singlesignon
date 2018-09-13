@@ -35,6 +35,10 @@ class SSOAcsController extends FrontendController
         $samlResponse = new \OneLogin_Saml2_Response($SAMLSettings, $sSamlResponse);
 
         try {
+
+
+             var_dump($samlResponse->isValid()); die('---');
+
             if (!$samlResponse->isValid() ) {
                 throw new Exception('Invalid SAML response.');
             }
