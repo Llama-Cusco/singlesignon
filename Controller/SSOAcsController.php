@@ -36,10 +36,18 @@ class SSOAcsController extends FrontendController
             $SAMLSettings = new \OneLogin_Saml2_Settings($aSettings);
         }
         catch(\Exception $e) {
-            var_dump($e);
+            var_dump('exception 1: ', $e);
+            die();
         }
 
-        $samlResponse = new \OneLogin_Saml2_Response($SAMLSettings, $sSamlResponse);
+        try {
+            $samlResponse = new \OneLogin_Saml2_Response($SAMLSettings, $sSamlResponse);
+        }
+        catch(\Exception $e) {
+            var_dump('exception 2:', $e);
+            die();
+        }
+
 
         var_dump($samlResponse);
         die('******');
