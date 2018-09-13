@@ -25,6 +25,8 @@ class SSOAcsController extends FrontendController
 
         $sSamlResponse = $this->getConfig()->getRequestParameter('SAMLResponse');
 
+        var_dump($sSamlResponse); die();
+
         if(!$sSamlResponse) {
             throw new Exception('Empty SAML response.');
         };
