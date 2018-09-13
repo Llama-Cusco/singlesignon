@@ -1,4 +1,4 @@
 <?php
 
-define("ENVIRONMENT", 'local');
-//define("ENVIRONMENT", 'dev');
+//define("ENVIRONMENT", 'local');
+define("ENVIRONMENT", 'dev');
