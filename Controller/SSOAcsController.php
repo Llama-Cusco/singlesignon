@@ -36,6 +36,7 @@ class SSOAcsController extends FrontendController
         $samlResponse = new \OneLogin_Saml2_Response($SAMLSettings, $sSamlResponse);
 
         var_dump($aSettings, $sSamlResponse);
+        die('******');
 
         try {
             if (!$samlResponse->isValid() ) {
