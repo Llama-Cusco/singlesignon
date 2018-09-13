@@ -49,15 +49,15 @@ class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
             ),
 
             'idp' => array (
-                'entityId' => '',
+                'entityId' => 'https://mms-te.socoto.com/saml',
                 'singleSignOnService' => array (
-                    'url' => 'http://sogus.scavan.xyz/saml/saml2/idp/SSOService.php',
-                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+                    'url' => 'https://mms-te.socoto.com/saml/consumer',
+                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
                 ),
 
                 'singleLogoutService' => array (
-                    'url' => 'http://sogus.scavan.xyz/saml/saml2/idp/SingleLogoutService.php',
-                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+                    'url' => 'https://mms-te.socoto.com/saml/slo',
+                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
                 ),
 
                 // Public x509 certificate of the IdP
