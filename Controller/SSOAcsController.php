@@ -25,17 +25,11 @@ class SSOAcsController extends FrontendController
 
         $sSamlResponse = $this->getConfig()->getRequestParameter('SAMLResponse');
 
-        var_dump($sSamlResponse);
-
         if(!$sSamlResponse) {
             throw new Exception('Empty SAML response.');
         };
 
-        echo '>>>>>';
-
         $aSettings = \SSOSamlHelper::getSettings();
-
-        var_dump($aSettings);
 
 
         try {
@@ -45,14 +39,10 @@ class SSOAcsController extends FrontendController
             var_dump($e);
         }
 
-
-
-        var_dump($SAMLSettings);
-
-        die('******');
-
         $samlResponse = new \OneLogin_Saml2_Response($SAMLSettings, $sSamlResponse);
 
+        var_dump($samlResponse);
+        die('******');
 
         try {
             if (!$samlResponse->isValid() ) {
