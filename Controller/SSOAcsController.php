@@ -36,8 +36,10 @@ class SSOAcsController extends FrontendController
 
         try {
 
-
-             var_dump($samlResponse->isValid()); die('---');
+             var_dump($samlResponse->isValid());
+             $assertionAttributes = $samlResponse->getAttributes();
+             var_dump($assertionAttributes);
+             die('---');
 
             if (!$samlResponse->isValid() ) {
                 throw new Exception('Invalid SAML response.');
