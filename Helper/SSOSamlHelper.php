@@ -10,8 +10,6 @@ class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
         $sEntityId = str_replace(array('http://','https://'), '', oxRegistry::getConfig()->getShopUrl());
         $sEntityId = trim($sEntityId, ' /');
 
-        var_dump($sEntityId);
-
         $aSettings['dev.hyundai-merchandising.com'] = array (
             'strict' => false,
             'debug' => false,
