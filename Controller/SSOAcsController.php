@@ -42,6 +42,8 @@ class SSOAcsController extends FrontendController
 
             $assertionAttributes = $samlResponse->getAttributes();
 
+            var_dump( $assertionAttributes );die();
+
             $this->handleIdpLoginResponse($assertionAttributes, $redirect);
 
         } catch (Exception $e) {
@@ -63,6 +65,10 @@ class SSOAcsController extends FrontendController
         $sQ = 'select oxid from oxuser where oxusername = ' . $oDb->quote($login) . ' AND oxactive = 1';
         $sUserOxid = $oDb->getOne($sQ);
 
+        if(!$sUserOxid) {
+            $sUserOxid = $this->createUser();
+        }
+
         if ($sUserOxid) {
             //login oxid customer in session
             $this->setUser(null);
@@ -79,6 +85,45 @@ class SSOAcsController extends FrontendController
         }
 
         Registry::getUtils()->redirect( $this->getConfig()->getShopUrl()  );
+    }
+
+
+    private function createUser($login) {
+        try {
+            /** @var \OxidEsales\Eshop\Application\Model\User $oUser */
+            $oUser = oxNew(\OxidEsales\Eshop\Application\Model\User::class);
+
+            // setting values
+            $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($login, \OxidEsales\Eshop\Core\Field::T_RAW);
+
+            $sPassword = $this->createDummyPassword($login);
+
+            $oUser->setPassword($sPassword);
+            $oUser->oxuser__oxactive = new \OxidEsales\Eshop\Core\Field(1, \OxidEsales\Eshop\Core\Field::T_RAW);
+
+
+            $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+            $database->startTransaction();
+
+            try {
+                $oUser->createUser();
+                $database->commitTransaction();
+                return $oUser->getId();
+
+            } catch (Exception $exception) {
+                $database->rollbackTransaction();
+                throw $exception;
+            }
+        }
+        catch (\OxidEsales\Eshop\Core\Exception\UserException $exception) {
+                Registry::getUtilsView()->addErrorToDisplay($exception, false, true);
+                return false;
+        }
+    }
+
+
+    private function createDummyPassword($login) {
+        return $login . '_' . $this->getConfig()->getShopUrl();
     }
 
 }
