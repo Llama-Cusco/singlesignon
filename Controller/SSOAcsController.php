@@ -62,8 +62,7 @@ class SSOAcsController extends FrontendController
                 ["lastname"]=> array(1) {
                     [0]=> string(16) "Itratos SSO-Test"
                 }
-            }
-*/
+            }*/
 
             $this->handleIdpLoginResponse($assertionAttributes, $redirect);
 
