@@ -42,7 +42,28 @@ class SSOAcsController extends FrontendController
 
             $assertionAttributes = $samlResponse->getAttributes();
 
-            var_dump( $assertionAttributes );die();
+            //var_dump( $assertionAttributes );die();
+/*          array(7) {
+                ["mandator"]=> array(1) {
+                    [0]=> string(2) "89"
+                }
+                ["firstname"]=> array(1) {
+                    [0]=> string(0) ""
+                } ["ident"]=> array(1) {
+                    [0]=> string(4) "1092"
+                }
+                ["roles"]=> array(1) {
+                    [0]=> string(7) "FILIALE"
+                } ["login"]=> array(1) {
+                    [0]=> string(10) "itratossso"
+                } ["type"]=> array(1) {
+                    [0]=> string(1) "9"
+                }
+                ["lastname"]=> array(1) {
+                    [0]=> string(16) "Itratos SSO-Test"
+                }
+            }
+*/
 
             $this->handleIdpLoginResponse($assertionAttributes, $redirect);
 
