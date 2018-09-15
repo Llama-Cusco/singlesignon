@@ -87,7 +87,7 @@ class SSOAcsController extends FrontendController
         $sUserOxid = $oDb->getOne($sQ);
 
         if(!$sUserOxid) {
-            $sUserOxid = $this->createUser();
+            $sUserOxid = $this->createUser($login);
         }
 
         if ($sUserOxid) {
