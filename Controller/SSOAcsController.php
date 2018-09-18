@@ -131,7 +131,7 @@ class SSOAcsController extends FrontendController
         $oUser->oxuser__oxstreet = new \OxidEsales\Eshop\Core\Field($aUserData['customer.street'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxcity = new \OxidEsales\Eshop\Core\Field($aUserData['customer.town'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxzip = new \OxidEsales\Eshop\Core\Field($aUserData['customer.zip'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-        $oUser->oxuser__oxcustnr = new \OxidEsales\Eshop\Core\Field($aUserData['ident'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxcustnr = new \OxidEsales\Eshop\Core\Field((int)$aUserData['ident'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxfname = new \OxidEsales\Eshop\Core\Field($aUserData['firstname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($aUserData['login'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
@@ -148,8 +148,6 @@ class SSOAcsController extends FrontendController
         $oUser->load($sOxid);
 
         $this->setUserData($oUser, $aUserData);
-
-        var_dump($oUser);die();
 
         $oUser->save();
     }
