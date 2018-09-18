@@ -149,6 +149,8 @@ class SSOAcsController extends FrontendController
 
         $this->setUserData($oUser, $aUserData);
 
+        var_dump($oUser);die();
+
         $oUser->save();
     }
 
