@@ -123,6 +123,9 @@ class SSOAcsController extends FrontendController
             }
         }
         catch (\OxidEsales\Eshop\Core\Exception\UserException $exception) {
+
+                var_dump($exception);die();
+
                 Registry::getUtilsView()->addErrorToDisplay($exception, false, true);
                 return false;
         }
