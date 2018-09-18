@@ -97,6 +97,8 @@ class SSOAcsController extends FrontendController
             /** @var \OxidEsales\Eshop\Application\Model\User $oUser */
             $oUser = oxNew(\OxidEsales\Eshop\Application\Model\User::class);
 
+            $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+
             // setting values
             $oUser->oxuser__oxurl = new \OxidEsales\Eshop\Core\Field($aUserData['customer.email'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
             $oUser->oxuser__oxcompany = new \OxidEsales\Eshop\Core\Field($aUserData['customer.name'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
@@ -109,11 +111,14 @@ class SSOAcsController extends FrontendController
             $oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
             $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($aUserData['login'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
 
+            $sQ = "select oxid from oxcountry where oxisoalpha2 = " . $database->quote( $aUserData['customer.nation'][0] );
+            $sCountryID = $database->getOne( $sQ );
+            $oUser->oxuser__oxcountryid = new \OxidEsales\Eshop\Core\Field($sCountryID, \OxidEsales\Eshop\Core\Field::T_RAW);
+
             $sPassword = $this->createDummyPassword($aUserData['login'][0]);
             $oUser->setPassword($sPassword);
             $oUser->oxuser__oxactive = new \OxidEsales\Eshop\Core\Field(1, \OxidEsales\Eshop\Core\Field::T_RAW);
 
-            $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
             $database->startTransaction();
 
             try {
