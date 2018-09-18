@@ -103,6 +103,8 @@ class SSOAcsController extends FrontendController
             $oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'], \OxidEsales\Eshop\Core\Field::T_RAW);
             $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($aUserData['login'], \OxidEsales\Eshop\Core\Field::T_RAW);
 
+            var_dump($oUser);die();
+
             $sPassword = $this->createDummyPassword($aUserData['login']);
 
             $oUser->setPassword($sPassword);
