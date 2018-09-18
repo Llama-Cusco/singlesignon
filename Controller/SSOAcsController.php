@@ -42,7 +42,11 @@ class SSOAcsController extends FrontendController
 
             $assertionAttributes = $samlResponse->getAttributes();
 
-            //var_dump( $assertionAttributes );die();
+            echo '<pre>';
+            print_r($assertionAttributes);
+            echo '</pre>';
+            die();
+
 /*          array(7) {
                 ["mandator"]=> array(1) {
                     [0]=> string(2) "89"
