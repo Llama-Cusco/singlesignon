@@ -66,6 +66,9 @@ class SSOAcsController extends FrontendController
         if(!$sUserOxid) {
             $sUserOxid = $this->createUser($assertionAttributes);
         }
+        else {
+            $this->updateUser($assertionAttributes, $sUserOxid);
+        }
 
         if ($sUserOxid) {
             //login oxid customer in session
@@ -93,25 +96,10 @@ class SSOAcsController extends FrontendController
 
             $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
-            // setting values
-            $oUser->oxuser__oxurl = new \OxidEsales\Eshop\Core\Field($aUserData['customer.email'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxcompany = new \OxidEsales\Eshop\Core\Field($aUserData['customer.name'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxfon = new \OxidEsales\Eshop\Core\Field($aUserData['customer.phone'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxstreet = new \OxidEsales\Eshop\Core\Field($aUserData['customer.street'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxcity = new \OxidEsales\Eshop\Core\Field($aUserData['customer.town'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxzip = new \OxidEsales\Eshop\Core\Field($aUserData['customer.zip'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxcustnr = new \OxidEsales\Eshop\Core\Field($aUserData['ident'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxfname = new \OxidEsales\Eshop\Core\Field($aUserData['firstname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($aUserData['login'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-
-            $sQ = "select oxid from oxcountry where oxisoalpha2 = " . $database->quote( $aUserData['customer.nation'][0] );
-            $sCountryID = $database->getOne( $sQ );
-            $oUser->oxuser__oxcountryid = new \OxidEsales\Eshop\Core\Field($sCountryID, \OxidEsales\Eshop\Core\Field::T_RAW);
+            $this->setUserData($oUser, $aUserData);
 
             $sPassword = $this->createDummyPassword($aUserData['login'][0]);
             $oUser->setPassword($sPassword);
-            $oUser->oxuser__oxactive = new \OxidEsales\Eshop\Core\Field(1, \OxidEsales\Eshop\Core\Field::T_RAW);
 
             $database->startTransaction();
 
@@ -129,6 +117,39 @@ class SSOAcsController extends FrontendController
                 Registry::getUtilsView()->addErrorToDisplay($exception, false, true);
                 return false;
         }
+    }
+
+
+    private function setUserData($oUser, $aUserData) {
+
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+
+        // setting values
+        $oUser->oxuser__oxurl = new \OxidEsales\Eshop\Core\Field($aUserData['customer.email'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxcompany = new \OxidEsales\Eshop\Core\Field($aUserData['customer.name'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxfon = new \OxidEsales\Eshop\Core\Field($aUserData['customer.phone'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxstreet = new \OxidEsales\Eshop\Core\Field($aUserData['customer.street'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxcity = new \OxidEsales\Eshop\Core\Field($aUserData['customer.town'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxzip = new \OxidEsales\Eshop\Core\Field($aUserData['customer.zip'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxcustnr = new \OxidEsales\Eshop\Core\Field($aUserData['ident'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxfname = new \OxidEsales\Eshop\Core\Field($aUserData['firstname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($aUserData['login'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxactive = new \OxidEsales\Eshop\Core\Field(1, \OxidEsales\Eshop\Core\Field::T_RAW);
+
+        $sQ = "select oxid from oxcountry where oxisoalpha2 = " . $database->quote( $aUserData['customer.nation'][0] );
+        $sCountryID = $database->getOne( $sQ );
+        $oUser->oxuser__oxcountryid = new \OxidEsales\Eshop\Core\Field($sCountryID, \OxidEsales\Eshop\Core\Field::T_RAW);
+    }
+
+    private function updateUser($aUserData, $sOxid) {
+        $oUser = oxNew(\OxidEsales\Eshop\Application\Model\User::class);
+
+        $this->setUserData($oUser, $aUserData);
+
+        $oUser->oxuser__oxid = new \OxidEsales\Eshop\Core\Field($sOxid, \OxidEsales\Eshop\Core\Field::T_RAW);
+
+        $oUser->save();
     }
 
 
