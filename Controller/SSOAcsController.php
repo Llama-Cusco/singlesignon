@@ -10,6 +10,8 @@ use OxidEsales\Eshop\Core\Registry;
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../config/includes.php';
 
+define("SOCOTO_EMAIL_DOMAIN", '@hyundai-merchandising.com');
+
 
 class SSOAcsController extends FrontendController
 {
@@ -42,10 +44,10 @@ class SSOAcsController extends FrontendController
 
             $assertionAttributes = $samlResponse->getAttributes();
 
-            echo '<pre>';
-            print_r( $assertionAttributes );
-            echo '</pre>';
-            die();
+//            echo '<pre>';
+//            print_r( $assertionAttributes );
+//            echo '</pre>';
+//            die();
 
             $this->handleIdpLoginResponse($assertionAttributes, $redirect);
 
@@ -63,7 +65,7 @@ class SSOAcsController extends FrontendController
             throw new Exception("Missing login from saml response");
         }
 
-        //get user by email
+        $login .= SOCOTO_EMAIL_DOMAIN;
         $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
         $sQ = 'select oxid from oxuser where oxusername = ' . $oDb->quote($login) . ' AND oxactive = 1';
         $sUserOxid = $oDb->getOne($sQ);
@@ -139,7 +141,7 @@ class SSOAcsController extends FrontendController
         $oUser->oxuser__oxcustnr = new \OxidEsales\Eshop\Core\Field((int)$aUserData['ident'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxfname = new \OxidEsales\Eshop\Core\Field($aUserData['firstname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-        $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($aUserData['login'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($aUserData['login'][0] . SOCOTO_EMAIL_DOMAIN, \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxactive = new \OxidEsales\Eshop\Core\Field(1, \OxidEsales\Eshop\Core\Field::T_RAW);
 
         $sQ = "select oxid from oxcountry where oxisoalpha2 = " . $database->quote( $aUserData['customer.nation'][0] );
