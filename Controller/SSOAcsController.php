@@ -42,6 +42,11 @@ class SSOAcsController extends FrontendController
 
             $assertionAttributes = $samlResponse->getAttributes();
 
+            echo '<pre>';
+            print_r( $assertionAttributes );
+            echo '</pre>';
+            die();
+
             $this->handleIdpLoginResponse($assertionAttributes, $redirect);
 
         } catch (Exception $e) {
