@@ -118,17 +118,11 @@ class SSOAcsController extends FrontendController
                 return $oUser->getId();
 
             } catch (Exception $exception) {
-
-                var_dump($exception);die();
-
                 $database->rollbackTransaction();
                 throw $exception;
             }
         }
         catch (\OxidEsales\Eshop\Core\Exception\UserException $exception) {
-
-
-
                 Registry::getUtilsView()->addErrorToDisplay($exception, false, true);
                 return false;
         }
