@@ -92,15 +92,15 @@ class SSOAcsController extends FrontendController
             $oUser = oxNew(\OxidEsales\Eshop\Application\Model\User::class);
 
             // setting values
-            $oUser->oxuser__oxurl = new \OxidEsales\Eshop\Core\Field($aUserData['customer.email'], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxcompany = new \OxidEsales\Eshop\Core\Field($aUserData['customer.name'], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxfon = new \OxidEsales\Eshop\Core\Field($aUserData['customer.phone'], \OxidEsales\Eshop\Core\Field::T_RAW);
+            //$oUser->oxuser__oxurl = new \OxidEsales\Eshop\Core\Field($aUserData['customer.email'], \OxidEsales\Eshop\Core\Field::T_RAW);
+            //$oUser->oxuser__oxcompany = new \OxidEsales\Eshop\Core\Field($aUserData['customer.name'], \OxidEsales\Eshop\Core\Field::T_RAW);
+            //$oUser->oxuser__oxfon = new \OxidEsales\Eshop\Core\Field($aUserData['customer.phone'], \OxidEsales\Eshop\Core\Field::T_RAW);
             $oUser->oxuser__oxstreet = new \OxidEsales\Eshop\Core\Field($aUserData['customer.street'], \OxidEsales\Eshop\Core\Field::T_RAW);
             $oUser->oxuser__oxcity = new \OxidEsales\Eshop\Core\Field($aUserData['customer.town'], \OxidEsales\Eshop\Core\Field::T_RAW);
             $oUser->oxuser__oxzip = new \OxidEsales\Eshop\Core\Field($aUserData['customer.zip'], \OxidEsales\Eshop\Core\Field::T_RAW);
             $oUser->oxuser__oxcustnr = new \OxidEsales\Eshop\Core\Field($aUserData['ident'], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxfname = new \OxidEsales\Eshop\Core\Field($aUserData['firstname'], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'], \OxidEsales\Eshop\Core\Field::T_RAW);
+            //$oUser->oxuser__oxfname = new \OxidEsales\Eshop\Core\Field($aUserData['firstname'], \OxidEsales\Eshop\Core\Field::T_RAW);
+            //$oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'], \OxidEsales\Eshop\Core\Field::T_RAW);
             $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($aUserData['login'], \OxidEsales\Eshop\Core\Field::T_RAW);
 
 
