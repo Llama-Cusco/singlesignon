@@ -64,12 +64,6 @@ class SSOAcsController extends FrontendController
         $sUserOxid = $oDb->getOne($sQ);
 
         if(!$sUserOxid) {
-
-            echo '<pre>';
-            print_r($assertionAttributes);
-            echo '</pre>';
-            die();
-
             $sUserOxid = $this->createUser($assertionAttributes);
         }
 
