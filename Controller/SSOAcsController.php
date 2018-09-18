@@ -103,6 +103,7 @@ class SSOAcsController extends FrontendController
             //$oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'], \OxidEsales\Eshop\Core\Field::T_RAW);
 
 
+
             var_dump($aUserData);die();
 
             $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field('itratossso', \OxidEsales\Eshop\Core\Field::T_RAW);
