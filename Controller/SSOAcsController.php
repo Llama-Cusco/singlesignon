@@ -109,8 +109,6 @@ class SSOAcsController extends FrontendController
             $oUser->setPassword($sPassword);
             $oUser->oxuser__oxactive = new \OxidEsales\Eshop\Core\Field(1, \OxidEsales\Eshop\Core\Field::T_RAW);
 
-            var_dump($oUser);die();
-
             $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
             $database->startTransaction();
 
@@ -120,13 +118,16 @@ class SSOAcsController extends FrontendController
                 return $oUser->getId();
 
             } catch (Exception $exception) {
+
+                var_dump($exception);die();
+
                 $database->rollbackTransaction();
                 throw $exception;
             }
         }
         catch (\OxidEsales\Eshop\Core\Exception\UserException $exception) {
 
-                var_dump($exception);die();
+
 
                 Registry::getUtilsView()->addErrorToDisplay($exception, false, true);
                 return false;
