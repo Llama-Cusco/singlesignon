@@ -102,10 +102,11 @@ class SSOAcsController extends FrontendController
             //$oUser->oxuser__oxfname = new \OxidEsales\Eshop\Core\Field($aUserData['firstname'], \OxidEsales\Eshop\Core\Field::T_RAW);
             //$oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'], \OxidEsales\Eshop\Core\Field::T_RAW);
 
-            $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($aUserData['login'], \OxidEsales\Eshop\Core\Field::T_RAW);
-            $sPassword = $this->createDummyPassword($aUserData['login']);
+            $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field('itratossso', \OxidEsales\Eshop\Core\Field::T_RAW);
+            //$sPassword = $this->createDummyPassword($aUserData['login']);
             //$oUser->setPassword($sPassword);
             $oUser->oxuser__oxactive = new \OxidEsales\Eshop\Core\Field(1, \OxidEsales\Eshop\Core\Field::T_RAW);
+
 
             $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
             $database->startTransaction();
