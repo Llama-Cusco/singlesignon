@@ -145,9 +145,9 @@ class SSOAcsController extends FrontendController
     private function updateUser($aUserData, $sOxid) {
         $oUser = oxNew(\OxidEsales\Eshop\Application\Model\User::class);
 
-        $this->setUserData($oUser, $aUserData);
+        $oUser->load($sOxid);
 
-        $oUser->oxuser__oxid = new \OxidEsales\Eshop\Core\Field($sOxid, \OxidEsales\Eshop\Core\Field::T_RAW);
+        $this->setUserData($oUser, $aUserData);
 
         $oUser->save();
     }
