@@ -131,11 +131,21 @@ class SSOAcsController extends FrontendController
 
         $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
+        if(preg_match('/^(\D*)\s+([\d|I]+.*)/', $aUserData['customer.street'][0], $m)) {
+            $sStreet = $m[1];
+            $sStreetNr = $m[2];
+        }
+        else {
+            $sStreet = $aUserData['customer.street'][0];
+            $sStreetNr = '';
+        }
+
         // setting values
         $oUser->oxuser__oxurl = new \OxidEsales\Eshop\Core\Field($aUserData['customer.email'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxcompany = new \OxidEsales\Eshop\Core\Field($aUserData['customer.name'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxfon = new \OxidEsales\Eshop\Core\Field($aUserData['customer.phone'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
-        $oUser->oxuser__oxstreet = new \OxidEsales\Eshop\Core\Field($aUserData['customer.street'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxstreet = new \OxidEsales\Eshop\Core\Field($sStreet, \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxstreetnr = new \OxidEsales\Eshop\Core\Field($sStreetNr, \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxcity = new \OxidEsales\Eshop\Core\Field($aUserData['customer.town'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxzip = new \OxidEsales\Eshop\Core\Field($aUserData['customer.zip'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxcustnr = new \OxidEsales\Eshop\Core\Field((int)$aUserData['ident'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
