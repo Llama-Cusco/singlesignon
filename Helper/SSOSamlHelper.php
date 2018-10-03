@@ -113,6 +113,108 @@ RUbIZOIEUWn5JA4sGyl2ky3DAkVhhnZ2W/k/Rm4Jq/O5ap7mArfoM1TaKVmePhX9'
             )
         );
 
+        $aSettings['hyundai-merchandising.com'] = array (
+            'strict' => false,
+            'debug' => false,
+            'baseurl' => 'https://hyundai-merchandising.com',
+
+            'sp' => array (
+                'entityId' => 'hyundai-merchandising.com',
+                'assertionConsumerService' => array (
+                    'url' => 'https://hyundai-merchandising.com/index.php?cl=ssoacscontroller',
+                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
+                ),
+                "attributeConsumingService"=> array(
+                    "ServiceName" => "SP test",
+                    "serviceDescription" => "Test Service",
+                    "requestedAttributes" => array(
+                        array(
+                            "name" => "",
+                            "isRequired" => false,
+                            "nameFormat" => "",
+                            "friendlyName" => "",
+                            "attributeValue" => ""
+                        )
+                    )
+                ),
+
+                'singleLogoutService' => array (
+                    'url' => 'https://hyundai-merchandising.com/index.php?cl=ssologoutcontroller',
+                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+                ),
+                'NameIDFormat' => 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
+
+                'x509cert' => 'MIID1DCCArygAwIBAgIJAJPbXkXd+upeMA0GCSqGSIb3DQEBCwUAMH8xCzAJBgNV
+BAYTAkRFMRMwEQYDVQQIDApTb21lLVN0YXRlMRAwDgYDVQQKDAdJdHJhdG9zMRAw
+DgYDVQQLDAdJdHJhdG9zMQ4wDAYDVQQDDAVsbGFtYTEnMCUGCSqGSIb3DQEJARYY
+c2FzaGEyMDUxNDAyNDVAZ21haWwuY29tMB4XDTE4MTAwMzEzMjkxMloXDTI4MTAw
+MjEzMjkxMlowfzELMAkGA1UEBhMCREUxEzARBgNVBAgMClNvbWUtU3RhdGUxEDAO
+BgNVBAoMB0l0cmF0b3MxEDAOBgNVBAsMB0l0cmF0b3MxDjAMBgNVBAMMBWxsYW1h
+MScwJQYJKoZIhvcNAQkBFhhzYXNoYTIwNTE0MDI0NUBnbWFpbC5jb20wggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDdW1CoI38oWjMZjpjOcrxVqsyrFBpN
+uxfUO1DLlaX0WdNovvSLURaCIBzvgBUhlNHMIf3WpUzEjwIE9nuJ0VZS+yoQXyVa
+lwi+6z58kUS6MKZlGv4kNvit9eovXDpDNY+IwtVZdR/vQOIqlp65HxP/bJ1KDlQd
+UJWToaay3b8CoDWASDFHk0SH4Nr3+CpWMdj+jofQKRX6IxerFP11hRT0Z0+pi5k3
+CGLpjJApNtOSO0WzjpfIXzEO/E0ctiqy7T4P0ApD1Z8YtPm1xIqrH6bQbV1ZGgRw
+8i0/NyvumkCiCch2zrs2QxL47PX7CFoWcECEb0vc9QnssA3UdqaGsU6TAgMBAAGj
+UzBRMB0GA1UdDgQWBBQXZ6Zbut7OE40MkLLZm0qkuDWEWDAfBgNVHSMEGDAWgBQX
+Z6Zbut7OE40MkLLZm0qkuDWEWDAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEB
+CwUAA4IBAQBTi8ymNgrxmnxLO24oNGuxDM4/WGA5X5C6U2f9HNsPz2RJLEdWCme9
+9OxT/cg7ekPvyZEDck69L82LRop4j2y70py36QBp0i8ZZuYuw2BWDiKysIOC9S3a
+XMyBQvfaVNuL29msbiWe8Ds7mdjCyq2Vm8g8ahQJbH18YvNI8uX08Pmyvmz5DMA/
+oSUa+fH52b1nZbMKy4txTgrvgjLZzWjTrI3GkNqozcPuvIRO98eGsHtChz9FoErh
+ECD7UBoE1ZrGGflYGyKiCdOsFVNtgxXEaBL4I8HEnc/sqpL8XS0vosi0Az1RGW/f
+7KD5z0fPvy/mLxDn4CtLlEA5bfJFM3No',
+                'privateKey' => '',
+                // 'x509certNew' => '',
+            ),
+
+            'idp' => array (
+                'entityId' => 'https://mms.socoto.com/saml',
+                'singleSignOnService' => array (
+                    'url' => 'https://mms.socoto.com/saml/consumer',
+                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
+                ),
+
+                'singleLogoutService' => array (
+                    'url' => 'https://mms.socoto.com/saml/slo',
+                    'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
+                ),
+
+                // Public x509 certificate of the IdP
+                'x509cert' => 'MIIFnDCCBISgAwIBAgITPAAAlueTrtVFqSTXuwAAAACW5zANBgkqhkiG9w0BAQsF
+ADBGMRMwEQYKCZImiZPyLGQBGRYDY29tMRYwFAYKCZImiZPyLGQBGRYGc29jb3Rv
+MRcwFQYDVQQDEw5zb2NvdG8gUm9vdCBDQTAeFw0xNjA1MDMxMDE0MDdaFw0xODA1
+MDMxMDE0MDdaMIGcMQswCQYDVQQGEwJERTEYMBYGA1UECBMPUmhlaW5sYW5kLVBm
+YWx6MQ4wDAYDVQQHEwVUcmllcjEdMBsGA1UEChQUc29jb3RvIGdtYmggJiBjby4g
+a2cxCzAJBgNVBAsTAklUMRkwFwYDVQQDExBwcm9kLXNvY290by1zYW1sMRwwGgYJ
+KoZIhvcNAQkBFg1pdEBzb2NvdG8uY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+MIIBCgKCAQEAy8EqgSZlhfwWXSZ0zOPQuh7V1pmTpbBv6HQByWW4RpS3qEOkkCuP
+srpc+U6Cyx+A/xDMP8MUdaStjp43ZDxZtP5NfiXJ6o6nBqwuQ5suopb8zVFYh4Nd
+kZ7R1p9zCrPFlWjy7yHtJrJx0NvfAQDyrxIqXyVfTHYH95cncB831KVlKzPAHrrM
+wdLfCZEqOcLCa9XexV3Lud2hjIPfulsjNYWD+095LnG1YI/0S0UGi6fszEBPAwKd
+n/CZIIdBVMaTFA0iA9wLucxAXhPVN5EvNvzKq9nwR8g56b/QuVBM687BdWT43v+1
+DcqhQJDvK1FPw0ssRDhjl2RyxIihPav4jwIDAQABo4ICKjCCAiYwHQYDVR0OBBYE
+FGUWPu9ZFIFeMoARwzd19Yb0vsfEMB8GA1UdIwQYMBaAFGz381CzCwdcr+z1/m7X
+umEWd2qbMIHSBgNVHR8EgcowgccwgcSggcGggb6GgbtsZGFwOi8vL0NOPXNvY290
+byUyMFJvb3QlMjBDQSxDTj1zY3QtZGMxLENOPUNEUCxDTj1QdWJsaWMlMjBLZXkl
+MjBTZXJ2aWNlcyxDTj1TZXJ2aWNlcyxDTj1Db25maWd1cmF0aW9uLERDPWFnZW5j
+aXJjbGUsREM9ZGU/Y2VydGlmaWNhdGVSZXZvY2F0aW9uTGlzdD9iYXNlP29iamVj
+dENsYXNzPWNSTERpc3RyaWJ1dGlvblBvaW50MIHGBggrBgEFBQcBAQSBuTCBtjCB
+swYIKwYBBQUHMAKGgaZsZGFwOi8vL0NOPXNvY290byUyMFJvb3QlMjBDQSxDTj1B
+SUEsQ049UHVibGljJTIwS2V5JTIwU2VydmljZXMsQ049U2VydmljZXMsQ049Q29u
+ZmlndXJhdGlvbixEQz1hZ2VuY2lyY2xlLERDPWRlP2NBQ2VydGlmaWNhdGU/YmFz
+ZT9vYmplY3RDbGFzcz1jZXJ0aWZpY2F0aW9uQXV0aG9yaXR5MCEGCSsGAQQBgjcU
+AgQUHhIAVwBlAGIAUwBlAHIAdgBlAHIwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQM
+MAoGCCsGAQUFBwMBMA0GCSqGSIb3DQEBCwUAA4IBAQBZmY3owX2PvyMJOVqaf9th
+dA/8O7tQSZsd0MMKv8Ah22K6TVfw/CV0soq9naYr7KvgUEr8gCl8+LkDAlnJRyl2
+iLT9FEeqBvW0a3xXCWsy229gs3EmdudIH38toUd8f3nrGyOkHs84Qa7UDi1XA2h8
+T25sZ861PJCdtLK7A9TBrr68ev49q4a/Qo1gEdJMCMarkCHGQymzK710/ZPyqNLw
+grDkcORBE+7TB+OC1+2sq3gLFNVvmt8Gz7buul12U+KABqtJyZR61zAJ+6hGh8Vh
+Hj9p5GXMPTEEkauCnGqLl3CQDId+aeRAfVG+jIulxcBUhpPu48TfrQIFLlI+Uolq'
+            )
+        );
+
         $aSettings['oxid6'] = array (
             'strict' => false,
             'debug' => false,
