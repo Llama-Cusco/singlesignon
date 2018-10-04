@@ -7,7 +7,7 @@ class SSOSamlHelper extends \OxidEsales\Eshop\Core\Utils {
 
     public static function getSettings() {
 
-        $sEntityId = str_replace(array('http://','https://', 'www.'), '', oxRegistry::getConfig()->getShopUrl());
+        $sEntityId = str_replace(array('http://','https://'), '', oxRegistry::getConfig()->getShopUrl());
         $sEntityId = trim($sEntityId, ' /');
 
         $aSettings['dev.hyundai-merchandising.com'] = array (
@@ -113,15 +113,15 @@ RUbIZOIEUWn5JA4sGyl2ky3DAkVhhnZ2W/k/Rm4Jq/O5ap7mArfoM1TaKVmePhX9'
             )
         );
 
-        $aSettings['hyundai-merchandising.com'] = array (
+        $aSettings['www.hyundai-merchandising.com'] = array (
             'strict' => false,
             'debug' => false,
-            'baseurl' => 'https://hyundai-merchandising.com',
+            'baseurl' => 'https://www.hyundai-merchandising.com',
 
             'sp' => array (
-                'entityId' => 'hyundai-merchandising.com',
+                'entityId' => 'www.hyundai-merchandising.com',
                 'assertionConsumerService' => array (
-                    'url' => 'https://hyundai-merchandising.com/index.php?cl=ssoacscontroller',
+                    'url' => 'https://www.hyundai-merchandising.com/index.php?cl=ssoacscontroller',
                     'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
                 ),
                 "attributeConsumingService"=> array(
@@ -139,7 +139,7 @@ RUbIZOIEUWn5JA4sGyl2ky3DAkVhhnZ2W/k/Rm4Jq/O5ap7mArfoM1TaKVmePhX9'
                 ),
 
                 'singleLogoutService' => array (
-                    'url' => 'https://hyundai-merchandising.com/index.php?cl=ssologoutcontroller',
+                    'url' => 'https://www.hyundai-merchandising.com/index.php?cl=ssologoutcontroller',
                     'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
                 ),
                 'NameIDFormat' => 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
