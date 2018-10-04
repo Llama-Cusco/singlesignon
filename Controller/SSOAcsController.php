@@ -29,7 +29,7 @@ class SSOAcsController extends FrontendController
         $sSamlResponse = $this->getConfig()->getRequestParameter('SAMLResponse');
 
         if(!$sSamlResponse) {
-            throw new Exception('Empty SAML response.');
+            die('Empty SAML response.');
         };
 
         $aSettings = \SSOSamlHelper::getSettings();
@@ -40,7 +40,7 @@ class SSOAcsController extends FrontendController
         try {
 
             if (!$samlResponse->isValid() ) {
-                throw new Exception('Invalid SAML response.');
+                die('Invalid SAML response.');
             }
 
             $assertionAttributes = $samlResponse->getAttributes();
@@ -63,7 +63,7 @@ class SSOAcsController extends FrontendController
         //$email = isset($assertionAttributes['oxusername'])? $assertionAttributes['oxusername'][0] : '';
         $login = isset($assertionAttributes['login']) ? $assertionAttributes['login'][0] : '';
         if (!$login) {
-            throw new Exception("Missing login from saml response");
+            die ("Missing login from saml response");
         }
 
         $login .= SOCOTO_EMAIL_DOMAIN;
