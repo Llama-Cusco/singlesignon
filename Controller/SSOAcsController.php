@@ -153,6 +153,7 @@ class SSOAcsController extends FrontendController
         $oUser->oxuser__oxfname = new \OxidEsales\Eshop\Core\Field($aUserData['firstname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field($aUserData['lastname'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field($aUserData['login'][0] . SOCOTO_EMAIL_DOMAIN, \OxidEsales\Eshop\Core\Field::T_RAW);
+        $oUser->oxuser__oxaddinfo = new \OxidEsales\Eshop\Core\Field($aUserData['login'][0], \OxidEsales\Eshop\Core\Field::T_RAW);
         $oUser->oxuser__oxactive = new \OxidEsales\Eshop\Core\Field(1, \OxidEsales\Eshop\Core\Field::T_RAW);
 
         $sQ = "select oxid from oxcountry where oxisoalpha2 = " . $database->quote( $aUserData['customer.nation'][0] );
