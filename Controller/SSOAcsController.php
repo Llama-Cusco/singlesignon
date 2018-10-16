@@ -71,6 +71,10 @@ class SSOAcsController extends FrontendController
         $sQ = 'select oxid from oxuser where oxusername = ' . $oDb->quote($login) . ' AND oxactive = 1';
         $sUserOxid = $oDb->getOne($sQ);
 
+        $logger = oxNew(\Itratos\SingleSignOn\Core\Logger::class);
+        $logger->setTitle('test title - 1');
+        $logger->log("TEST error: " . '....');
+
         if(!$sUserOxid) {
             $sUserOxid = $this->createUser($assertionAttributes);
         }
@@ -92,11 +96,6 @@ class SSOAcsController extends FrontendController
 
             Registry::getUtils()->redirect( $redirect );
         }
-
-        //log
-        $logger = oxNew(\Itratos\SingleSignOn\Core\Logger::class);
-        $logger->setTitle('test title');
-        $logger->log("TEST error: " . '....');
 
         Registry::getUtils()->redirect( $this->getConfig()->getShopUrl()  );
     }
