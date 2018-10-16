@@ -93,6 +93,11 @@ class SSOAcsController extends FrontendController
             Registry::getUtils()->redirect( $redirect );
         }
 
+        //log
+        $logger = oxNew(\Itratos\SingleSignOn\Core\Logger::class);
+        $logger->setTitle('test title');
+        $logger->log("TEST error: " . '....');
+
         Registry::getUtils()->redirect( $this->getConfig()->getShopUrl()  );
     }
 
