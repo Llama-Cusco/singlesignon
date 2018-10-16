@@ -55,8 +55,6 @@ class Logger
             fclose($handle);
         }
 
-        die();
-
         //resetting log title
         $this->setTitle('');
     }
