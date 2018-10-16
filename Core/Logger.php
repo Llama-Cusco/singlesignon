@@ -33,12 +33,7 @@ class Logger
     public function log($logData)
     {
 
-        var_dump( $this->getLogFilePath() );
-
         $handle = fopen($this->getLogFilePath(), "a+");
-
-
-        var_dump($handle);
 
         if ($handle !== false) {
             if (is_string($logData)) {

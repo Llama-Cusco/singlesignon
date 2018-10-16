@@ -60,9 +60,13 @@ class SSOAcsController extends FrontendController
 
     private function handleIdpLoginResponse($assertionAttributes, $redirect) {
 
+        $logger = oxNew(\Itratos\SingleSignOn\Core\Logger::class);
+
         //$email = isset($assertionAttributes['oxusername'])? $assertionAttributes['oxusername'][0] : '';
         $login = isset($assertionAttributes['login']) ? $assertionAttributes['login'][0] : '';
         if (!$login) {
+            $logger->setTitle('SAML login error: empty login');
+            $logger->log($assertionAttributes);
             die ("Missing login from saml response");
         }
 
@@ -71,12 +75,13 @@ class SSOAcsController extends FrontendController
         $sQ = 'select oxid from oxuser where oxusername = ' . $oDb->quote($login) . ' AND oxactive = 1';
         $sUserOxid = $oDb->getOne($sQ);
 
-        $logger = oxNew(\Itratos\SingleSignOn\Core\Logger::class);
-        $logger->setTitle('test title - 1');
-        $logger->log("TEST error: " . '....');
-
         if(!$sUserOxid) {
             $sUserOxid = $this->createUser($assertionAttributes);
+
+            if(!$sUserOxid) {
+                $logger->setTitle('SAML login error: failed to create user');
+                $logger->log($assertionAttributes);
+            }
         }
         else {
             $this->updateUser($assertionAttributes, $sUserOxid);
@@ -91,11 +96,17 @@ class SSOAcsController extends FrontendController
                 Registry::getSession()->setVariable('usr', $sUserOxid);
             }
 
+            $logger->setTitle('SAML successful login:');
+            $logger->log(array($login, $sUserOxid));
+
             //todo: afterlogin
             //$this->_afterLogin($oUser);
 
             Registry::getUtils()->redirect( $redirect );
         }
+
+        $logger->setTitle('SAML login error: empty userid');
+        $logger->log('user login: '.$login);
 
         Registry::getUtils()->redirect( $this->getConfig()->getShopUrl()  );
     }
