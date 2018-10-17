@@ -23,6 +23,7 @@
 use \Itratos\SingleSignOn\Controller\SSOAcsController;
 use \Itratos\SingleSignOn\Controller\SSOLoginController;
 use \Itratos\SingleSignOn\Controller\SSOLogoutController;
+use \Itratos\SingleSignOn\Controller\Admin\SSOSamlLog;
 
 
 /**
@@ -51,9 +52,11 @@ $aModule = array(
     'controllers'       => array(
         'SSOAcsController' => SSOAcsController::class,
         'SSOLoginController' => SSOLoginController::class,
-        'SSOLogoutController' => SSOLogoutController::class
+        'SSOLogoutController' => SSOLogoutController::class,
+        'SSOSamlLog' => SSOSamlLog::class
     ),
     'templates'   => array(
+        'ssosamllog.tpl' => 'itratos/singlesignon/View/admin/ssosamllog.tpl'
     ),
     'events'      => array(
     ),
