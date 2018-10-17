@@ -3,7 +3,7 @@
 </div>
 
 <div class="sso_log_content">
-    <textarea rows="80" cols="50">
+    <textarea rows="40" cols="100">
         [{$sso_samllog}]
     </textarea>
 </div>
