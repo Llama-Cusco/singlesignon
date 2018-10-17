@@ -5,6 +5,7 @@ namespace Itratos\SingleSignOn\Controller\Admin;
 
 class SSOSamlLog extends \OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController
 {
+    protected $_sThisTemplate = 'ssosamllog.tpl';
 
     public function render()
     {
@@ -14,7 +15,7 @@ class SSOSamlLog extends \OxidEsales\Eshop\Application\Controller\Admin\AdminDet
 
         $this->_aViewData['sso_samllog'] = $logger->getLogContent();
 
-        return 'ssosamllog.tpl';
+        return parent::render();
     }
 
 
