@@ -56,7 +56,7 @@ $aModule = array(
         'SSOSamlLog' => SSOSamlLog::class
     ),
     'templates'   => array(
-        'ssosamllog.tpl' => 'itratos/singlesignon/View/admin/ssosamllog.tpl'
+        'ssosamllog.tpl' => 'itratos/singlesignon/views/admin/ssosamllog.tpl'
     ),
     'events'      => array(
     ),
