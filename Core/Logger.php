@@ -58,4 +58,11 @@ class Logger
         //resetting log title
         $this->setTitle('');
     }
+
+    public function getLogContent() {
+
+        $sLogContent = @file_get_contents($this->getLogFilePath());
+
+        return $sLogContent;
+    }
 }

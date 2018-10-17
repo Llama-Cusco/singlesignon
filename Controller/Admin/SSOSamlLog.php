@@ -10,6 +10,10 @@ class SSOSamlLog extends \OxidEsales\Eshop\Application\Controller\Admin\AdminDet
     {
         parent::render();
 
+        $logger = oxNew(\Itratos\SingleSignOn\Core\Logger::class);
+
+        $this->_aViewData['sso_samllog'] = $logger->getLogContent();
+
         return 'ssosamllog.tpl';
     }
 
