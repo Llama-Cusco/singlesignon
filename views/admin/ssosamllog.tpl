@@ -3,7 +3,7 @@
 </div>
 
 <div class="sso_log_content">
-    <textarea rows="40" cols="100">
+    <textarea rows="38" cols="100">
         [{$sso_samllog}]
     </textarea>
 </div>
@@ -11,7 +11,7 @@
 <style>
     .sso_log_title,
     .sso_log_content {
-        padding: 40px 20px 20px 0;
+        padding: 20px 0 12px 20px;
         font-weight: bold;
         font-size: 30px;
     }
