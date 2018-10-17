@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-15"?>
 <OX>
     <OXMENU id="NAVIGATION_ESHOPADMIN">
-        <MAINMENU id="mxsamllog">
-            <SUBMENU id="mxsamllog" cl="ssosamllog">
-            </SUBMENU>
+        <MAINMENU id="SSO_SAML">
+            <SUBMENU id="SSO_SAML_LOGIN_LOG" cl="ssosamllog">
         </MAINMENU>
     </OXMENU>
 </OX>
